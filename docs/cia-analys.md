@@ -1,0 +1,13 @@
+# CIA- Analys: HR-system
+
+## Confidentiality
+
+I HR-system så finns den mest känsliga datan om anställda så som löner, personuppgifter bankuppgifter. Därför är de så viktigt att man begränsar vilka som får ha tillgång till denna info. det kan man göra genom zerotrust principen att bara dem som behöver har tillgång till systemet. Starka lösenord, krypterad kommunication för att förhindra avslyssningar när information måste skickas över internet eller liknande. Skulle denna information läcka ut så kan det skada både den anställde och företaget och det kan bli sanktionsavgifter på grund av lagbrott så som gdpr som reglerar hur hanteringen av personuppgifter ska hanteras. Förtroendet för både HR och företaget kan tappas.
+
+## Integrity
+
+När det kommer till integriteten  är det viktigt att kunna veta vem som har gjort vad om något skulle ändrats eller tas bort. Man måste kunna spåra ändringarna till en person. Obehöriga ska inte kunna gissa sig till lösenordet för HR-systemet och där göra ändringar. Filer som skickas måste garanteras vara samma där man tar emot som där man skickade så ingen har ändrat något på vägen. Åtgärder för detta är att ha logg system som sparar alla ändringar, digitala signaturer som säger vem som gjort ändringen, Regelbunden granskning över transaktionsdatan. Skulle det visa sig att något av dessa skyddsåtgärder inte finns eller inte ha fungerat skulle det kunna leda till fel löner eller till och med utebliven lön, felaktiga beslut eller informations förfalskning.
+
+## Availability
+
+Tillgängligheten är minst lika om inte mest viktiga, Du kan ha det säkraste systemet i världen me nutan åtkomst blir det värdelöst. Skulle systemet bli atackerat eller krascha eller, "gått sönder" eller också blibit utsatt för tex ransomware är de viktigt att ha backups som möjliggör återställning av systemet. För att systemet inte ska bli överbelastat (inte jättetroligt på just ett hr system) bör man impelmentera lastbalanserare som fördelar trafiken. Det bör finnas någon form av systemövervakning och larm som kan varna om det blir atackerat eller något håller på att hända. Skulle man hamna i värsta möjliga scenario så ska det finnas en Disaster-plan som redan innan är beprävad och funkar. Skulle någon av dessa inträffa så kan ett företag bli utan HR-system vilket kan orsaka både ekonomiska förluster eller informationsförluster och i vissa fall avbrott i samhällskritiska tjänster.
