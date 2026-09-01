@@ -50,3 +50,40 @@ Reflektionsfrågor:
 • Vad menas med "flagga" eller "switch"? Flaggor/switch är en form av precisering av vad du vill att kommandot ska göra elelr om det ska göra något mer än kammandot själv.
 
 • När är det bättre att använda less än cat? när du vill gå in o leta reda på ett specifikt ord  eller om de är en stor fil kan det lätt bli rörigt om allt skrivs ut i terminalen som de görs med cat.
+
+# 5. Skapa första Bash-skriptet
+
+Reflektionsfrågor:
+
+• Varför behövs chmod +x? Chmod +x ger filen man har scriptet på execute rättigheter. Utan chmod +x nekas filen att köras pga rättigheter saknas.
+• Vad är skillnaden mellan att köra bash hello.sh och ./hello.sh? ./hello.sh kräver att du har gett filen execute rättigheter för att kunna köras som ett eget program medans med bash ./hello.sh så krävs inga rättigheter då det är bash själv som läser in filen och skriver ut i terminalen.
+
+# 6. Redigera och köra script
+
+Reflektionsfrågor:
+
+• Vad är skillnaden mellan att köra ett skript med ./skript.sh och bash skript.sh? ./skript.sh kräver att du har gett filen execute rättigheter för att kunna köras som ett eget program medans med bash ./script.sh så krävs inga rättigheter då det är bash själv som läser in filen och skriver ut i terminalen.
+
+• Varför fungerar inte ./skript.sh om du inte först kör chmod +x skript.sh? för att det saknas rättigheter att executa det som ett eget program
+
+• När kan det vara en fördel att köra ett skript med bash skript.sh istället för att
+göra det körbart? Om du är osäker på vad ett script du får gör kan du testa det med bash innan du kör chmod och ger de några rättigheter i ditt system.
+
+• Hur påverkar en felaktig tolkangivelse på första raden (t.ex. #!/bin/bash) om du
+försöker köra skriptet med ./skript.sh? då vet inte systemet hur den ska tolka scriptet om de är bash den ska använda eller python osv.
+
+• Vad händer om du kör ett skript utan att ange ./ framför? Varför fungerar det
+ibland och ibland inte?  om man inte använder ./ så tror bash att det är ett komando och kommer därför leta i listan av kommandon medans om du skriver ./ så vet den att det är en fil som ska köras som ett program
+
+• Kan du köra ett skript som ligger i en annan katalog utan att byta katalog? Hur? ja genom att skriva ut hela katalog pathen som i mitt fall blir /home/ubuntu/mittscript.sh
+
+• Vad händer om du kör ett skript med sh skript.sh men skriptet använder
+funktioner som inte stöds i sh? det funkar sålänge det är delar som båda sh och bash förstår men så fort det kommer bash specifika delar så kommer scriptet att misslyckas då sh inte förstår allt som bash gör
+
+
+• Vad betyder det att ett skript körs i en "subshell", och hur kan det påverka
+variabler eller miljön i det aktiva terminalfönstret? Variabeln kommer finnas kvar i subshell men du kan inte anropa eller använda det från huvud skalet.
+
+• Vad är skillnaden mellan grep ord fil och grep -i ord fil? grep kommer ta fram det exakta ordet medans grep -i tar även med samma ord oavsett om de är versaler eller inte.
+
+• Hur kan du söka rekursivt i alla filer under en katalog? (grep -r) med hjälp av grep -r "user" som ett exempel så kommer grep att list samtliga filer i katalogen du är i och alla underkataloger där user näms i texten. till skilnad från grep där du endast anger en fil som söks igenom.
