@@ -27,7 +27,7 @@
 | identitet och behörigheter | Risken med behörigheter skulle kunna vara att du ser att en användare har mer rättigheter än vad som behöver och därmed skapas risken att något förstörs eller tas bort av misstag|kontrollerade användare och grupper med whoami, id, groups i terminalen | Jag såg att användaren va ubuntu vilket jag vet sen tidigare samt att grupperna va även där dem jag förväntade mig| Integritet|
 | Fil rättigheter |Att man ger fel rättigheter till fel grupp vilket kan resultera i data förlust eller förendring | Skapade en fil, kollade rättigheterna, ändrade rättigheterna, verifierade att rättigheterna stämde | Jag skrev ls -l test.txt och kollade efter jag ändrade | Integritet |
 | Systemuppdateringar | Gamla versioner kan ha kända buggar som angripare utnytjar | körde sudo apt update för att se tillgängliga uppdateringar, sedan sudo apt --upgradable för att se exakt vilka updateringar det gällde | Jag såg att det fanns en kernel uppdatering så efter så kollade jag verisionen på den och den va då den senaste | Integritet |
-| Proccesser | Att det ligger en skadlig proccess igång i bakrunden som jag annars inte är medveten om | listade dem 10 första processerna som kördes denna sessionen | kollade procceser med ps aux | head och granskade proccesserna samt PID numrerna och dem steg i stegrande ordning. | Tillgänglighet |
+| Proccesser | Att det ligger en skadlig proccess igång i bakrunden som jag annars inte är medveten om | listade dem 10 första processerna som kördes denna sessionen | kollade procceser med ps aux head och granskade proccesserna samt PID numrerna och dem steg i stegrande ordning. | Tillgänglighet |
 ---
 ## 4. Recovery-plan
 
@@ -61,6 +61,7 @@ Skulle din vm försvinna så är den borta det går sällan att ångra.
 
 
 Eftersom min VM och github är två helt separata system så skulle all dokumentation finnas kvar på github.
+
 ### Vad kan återskapas?
 
 I mitt fall har jag nu en full backup på min VM men skulle inte de finnas  får man försöka starta en ny och göra så likt man kan utifrån dokumentationen på github och lektions inspelnings materialet.
@@ -71,7 +72,7 @@ Det som inte går att återskapa är det som hänt efter jag gjorde en backup me
 
 ---
 ## 6. Cleanup
-### VM-instans- Stopped
+### VM-instans- Stopped (så ja ginte kör slut på free tier usage eller om jag skulle haft en betal plan kanske de ligger och kostar massa pengar i onödan)
 
 ### Diskar- En boot volume "attached" med 50gb utrymme totalt.
 
@@ -88,10 +89,28 @@ https://github.com/hugowesterCA/hugo-wester-itsx26-labb01/edit/main/docs/week36-
 ---
 ## 7. CIA-reflektion
 ### Konfidentialitet
+
+I denna labb har jag dels använt linux kommandon som whoami, hostname, pwd och uname -a som alla främst rör konfidentialitet då man ser vem användaren är vart man är vilka som har tillgång till filer och dokument. Jag har även gjort hardening och säkrat upp systemet genom rättighets ändring med hjälp av chmod 600 som ser till att endast ägaren kan läsa skriva i mapparna (jag syftar på läs rättigheterna när de kommer till konfidentialitet).
+
 ### Integritet
+
+Jag har även här gjort hardening delar som främst vidrör intgriteten. Chmod 600 ändrade som sagt så att ändast ägaren kan skriva i mapparna. Uppdaterade linux till senaste uppdateringen med sudo apt update och upgrade så att inte anfallare använder sig av redan kända buggar eller hål för att komma in i systemet och ändra eller ta bort filer.
+
 ### Tillgänglighet
+
+ Systemuppdateringen påverkar även tillgänglighet då angripare skulle kunna komma in i systemet och stänga ner allting.
+ Jag använde ps aux som listar alla processer som körs på datorn och därmed ser till att inget program som ser skadligt ut körs elelr att något skadligt program snor prestanda eller i värsta fall leder till att systemet kraschar. Jag har skapat en backup till min VM på oracle cloud så om en krasch eller borttagning av min vm skulle ske så kan jag snabbare återställa systemet och se till att allt funkar igen. Under cleanup delen så såg jag till att min VM var avstängd när jag inte använde den så att det inte drar massa usage i onödan, detta skulle kunna leda till att jag måste betala mer för att köra min VM vilket kan göra den otillgänglig.
+ 
 ---
 ## 8. Reflektion
 ### Vad fungerade bra?
+
+Efter att jag väl fått igång oracle cloud och loggade in på min VM så tycker jag det har gått bra och man fick lite mer struktur efter man läste inlämningsuppgiften vars instruktioner var tydliga.
+
 ### Vad var svårt?
+
+Att få igång oracle cloud och förstå hur man skapar en vm samt att logga in med ssh nyckel då jag inte gjort det innan. Råkade stänga ner datorn under en linux uppdatering vilket ledde till att den uppdaterings processen stoppade mig från att slutföra uppdateringe för den låg och låste i bakrunden, löste det genom att gå in i ett annat fönster och stoppa den processen manuellt.
+
 ### Vad lärde jag mig?
+
+Jag har lärt mig mycket under denna labb. Blivit säkrare på linux systemet och hur det funkar då jag aldrig använt det förut. Jag har lärt mig att hela tiden utgå från CIA triaden i allt som rör it. Hur man skapar en instance på oracle cloud. Jag förstår nu även hur jag ansluter till en VM med hjälp av SSH-nyckel. Att man kan stoppa en process som körs i bakrunden genom att gå in i ett annat fönster.
