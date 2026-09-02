@@ -1,5 +1,5 @@
 # Week 36 OCI Cloud Security Lab
-## 1. Min OCI-miljö
+## 1. Min linux/oracle cloud miljö
 - Tenancy: hugowester
 - Compartment: hugowester (root)
 - Region: eu-stockholm-1
@@ -30,17 +30,45 @@
 | Proccesser | Att det ligger en skadlig proccess igång i bakrunden som jag annars inte är medveten om | listade dem 10 första processerna som kördes denna sessionen | kollade procceser med ps aux | head och granskade proccesserna samt PID numrerna och dem steg i stegrande ordning. | Tillgänglighet |
 ---
 ## 4. Recovery-plan
-### Vad kan gå fel?
-### Hur upptäcker jag problemet?
+
+### Hur du upptäcker problemet 
+
+Brandväggs regler: Skulle du exempel vis blockerat för många portar och just 22 som man använder för ssh anlutning, du märker ganska fort att det skulle stå connection refused eller något i den stilen. 
+
 ### Vad kontrollerar jag först?
-### Hur återställer jag åtkomst?
-### När behöver jag hjälp?
+
+Brandvägg: kolla först att internet uppkoppling finns, kolla så din instance faktiskt är igång, kolla över brandväggs reglerna (VNIC/security) om de finns något där som kan vara problemet.
+
+### Vilken information du behöver samla in
+
+Internet uppkopplings status, vm/instance status (är den ens på?), samla ihop samtliga brandväggs regler.
+
+### Hur du skulle få hjälp?
+
+Skulle det vara så att man inte har tillgång till moln servern/hanteringen får man be ägaren om den om hjälp eller om man är osäker på vilken av alla brandväggs regler det kan vara som blockar så man inte bara tar bort alla regler och släpper in all trafik. känner man sig väldigt okunnig på detta, fråga ai om de är generella koncept och frågor eller googla, fråga klasskompis eller lärare.
+
+### Hur skulle du kunna återskapa miljön?
+
+I just detta fallet om det skulle bero på brandväggs konfiguration så räcker det troligtvis att ta bort en regel där. Skulle det vara så att du verkligen inte kommer in igen så finns det förhoppningsvis en backup som återställer miljön innan du la till brandväggen. Har du inte det heller får du utgå från i detta fallet github repot och gamla lektions inspelningar som visar steg för steg hur du sätter upp din labb miljö.
+
 ---
 ## 5. Backup
-### Vad har jag sparat?
-### Vad finns i GitHub?
+### Vad händer om VM:n försvinner?
+
+Skulle din vm försvinna så är den borta det går sällan att ångra.
+
+### Vad finns kvar i GitHub?
+
+
+Eftersom min VM och github är två helt separata system så skulle all dokumentation finnas kvar på github.
 ### Vad kan återskapas?
+
+I mitt fall har jag nu en full backup på min VM men skulle inte de finnas  får man försöka starta en ny och göra så likt man kan utifrån dokumentationen på github och lektions inspelnings materialet.
+
 ### Vad går inte att återskapa?
+
+Det som inte går att återskapa är det som hänt efter jag gjorde en backup men också det jag inte har dokumenterat i github.
+
 ---
 ## 6. Cleanup
 ### VM-instans
