@@ -79,9 +79,7 @@ Det som inte går att återskapa är det som hänt efter jag gjorde en backup me
 
 ### Publika IP-adresser
 
-Public IPv4 address: 158.179.204.87
-
-Private IPv4 address: 10.0.0.80
+public ip-address 158.179.204.87 (Ephemeral= byts ut när vm tas bort eller stoppas)
 
 ### GitHub-evidens
 
