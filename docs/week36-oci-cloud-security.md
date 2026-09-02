@@ -9,7 +9,7 @@
 - Shape: VM.Standard.E2.1.Micro
 - Inloggningsmetod: Secure Shell
 
-<img width="561" height="347" alt="image" src="https://github.com/user-attachments/assets/563bad53-297a-4e33-8410-b654c4240035" />
+<img width="477" height="350" alt="image" src="https://github.com/user-attachments/assets/96e005e5-dbaa-4394-81d7-423c248a11a6" />
 
 ---
 ## 2. Linux-kommandon
@@ -71,11 +71,22 @@ Det som inte går att återskapa är det som hänt efter jag gjorde en backup me
 
 ---
 ## 6. Cleanup
-### VM-instans
-### Diskar
-### Backuper
+### VM-instans- Stopped
+
+### Diskar- En boot volume "attached" med 50gb utrymme totalt.
+
+### Backuper- en backup skapad på oracle cloud Sep 02, 2026, 06:37:53 UTC, inga ändringar gjorda sen dess.
+
 ### Publika IP-adresser
+
+Public IPv4 address: 158.179.204.87
+
+Private IPv4 address: 10.0.0.80
+
 ### GitHub-evidens
+
+https://github.com/hugowesterCA/hugo-wester-itsx26-labb01/edit/main/docs/week36-oci-cloud-security.md
+
 ---
 ## 7. CIA-reflektion
 ### Konfidentialitet
