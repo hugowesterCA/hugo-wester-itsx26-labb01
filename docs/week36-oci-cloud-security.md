@@ -33,12 +33,12 @@
 
 recovery workshop uppgift (OCI miljö) 
 
-steg 1: Går till storage på min instance, backups, create boot volume backup (Backup type: Full)
+steg 1: Går till storage på min instance -> boot-volume -> backups -> create boot volume backup (Backup type: Full)
 
 <img width="471" height="373" alt="image" src="https://github.com/user-attachments/assets/a2287988-2351-4d2f-bb06-4853243d9224" />
+Steg 2: Gick till boot volume -> backups -> valde den ursprungliga backupen klickade restore boot volume.
 
-
-steg 2: Actions -> restore boot volume ->itsx26-boot volume -> actions -> restore boot volume ->restore boot volume
+Steg 3: storage på instansen -> replace boot volume -> valde den den nya återställda volumen
 
 <img width="437" height="76" alt="image" src="https://github.com/user-attachments/assets/ca1b841f-5a3a-470c-959c-6501e61958a2" />
 
