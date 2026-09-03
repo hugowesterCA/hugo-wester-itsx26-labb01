@@ -4,6 +4,8 @@
 
 Välj minst tre observationer från labben. Beskriv varje observation, koppla den till CIA-triaden och föreslå en rimlig åtgärd.
 
+Jag gjorde riskbedömningen utifrån main.py
+
 | Observation | Påverkan på CIA | Riskbeskrivning | Föreslagen åtgärd | Prioritet |
 |---|---|---|---|---|
 | ValueError vid fel indata skriver ut fullständig traceback | Konfidentialitet | Tracebacken skriver ut fullständig filsökväg, radnummer och den exakta kod raden, en eventuell anfallare bör inte få se detta | Lägg till try/except i koden för att skriva ut ett mer generellt meddelande istället för hela tracebacken | Medel |
