@@ -72,7 +72,7 @@ Det som inte går att återskapa är det som hänt efter jag gjorde en backup me
 
 ---
 ## 6. Cleanup
-### VM-instans- Stopped (så ja ginte kör slut på free tier usage eller om jag skulle haft en betal plan kanske de ligger och kostar massa pengar i onödan)
+### VM-instans- Stopped (så ja ginte kör slut på free tier usage eller om jag skulle haft en betal plan kanske de ligger och kostar massa pengar i onödan). Jag har inte satt upp några brandväggsregler annars skulle man tagit bort dem.
 
 ### Diskar- En boot volume "attached" med 50gb utrymme totalt.
 
