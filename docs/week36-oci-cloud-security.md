@@ -31,6 +31,21 @@
 ---
 ## 4. Recovery-plan
 
+recovery workshop uppgift (OCI miljö) 
+
+steg 1: Går till storage på min instance, backups, create boot volume backup (Backup type: Full)
+
+<img width="471" height="373" alt="image" src="https://github.com/user-attachments/assets/a2287988-2351-4d2f-bb06-4853243d9224" />
+
+
+steg 2: Actions -> restore boot volume ->itsx26-boot volume -> actions -> restore boot volume ->restore boot volume
+
+<img width="437" height="76" alt="image" src="https://github.com/user-attachments/assets/ca1b841f-5a3a-470c-959c-6501e61958a2" />
+
+<img width="476" height="373" alt="image" src="https://github.com/user-attachments/assets/678d6fdb-a05d-4b10-adce-18d146a79f3b" />
+
+Skulle backupen inte fungera, kan jag utgå från inspelade lektioner om instance setupen samt all dokumentation på allt arbete finns på github för att försöka återskapa den miljön jag hade.
+
 ### Hur du upptäcker problemet 
 
 Brandväggs regler: Skulle du exempel vis blockerat för många portar och just 22 som man använder för ssh anlutning, du märker ganska fort att det skulle stå connection refused eller något i den stilen. 
