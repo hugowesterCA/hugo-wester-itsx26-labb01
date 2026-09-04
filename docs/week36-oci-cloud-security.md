@@ -15,11 +15,14 @@
 ## 2. Linux-kommandon
 | Kommando | Vad visar det? | CIA-koppling |
 |-----------|-----------|-----------|
-| whoami | visar vilken användare du är inloggad som|Konfidalitet eftersom det berättar vem du är inlogad som |
-| hostname | Berättar vart du kör din vm alternativt server | konfidalitet då det ger information om systemet |
+| whoami | (Ubuntu)visar vilken användare du är inloggad som|Konfidalitet eftersom det berättar vem du är inlogad som och därmed vad du har tillgång att läsa |
+| hostname | (instance-20260831-1327) Namn på den instans du kör ditt linux system på | konfidalitet då det ger information om systemet och kan bidra till kartläggning av systemet |
 | pwd | Talar om i vilken mapp du befinner dig i | Konfidalitet då den visar mappstrukturen och filsystemet |
 | uname -a | Talar om vilket os du använder, vad din vm heter, vilken verision av linux kärnan (kernel) som körs, när uppdateringen till kärnan släpptes, vilken processortyp som används (x86_64), berättar at de är linux kärnan som används ihop med GNU som är ett program med verktyg och program för att använda linux | Konfidalitet då den avslöjar kärn verision|
 | uptime | Klockslag nu, hur länge din VM varit igång sen senaste start samt load average | tillgänglighet, visar hur länge systemet varit igång och hur belastningen ser ut vilket jag kopplar direkt till tillgänglighet|
+| ls -la | listar alla mappar, -l listar detaljerad info, -a visar även gömda mappar (mappar som börjar på "."| Konfidentialitet då den visar mappar och vilka rättigheter som krävs|
+|date| visar dagens datum och klockslag| Integritet, om klockan är felinställd blir loggarnas tidsstämplar opålitliga |
+
 ---
 ## 3. Hardening
 | Kontroll | Risk | Vad gjorde jag? | Hur verifierade jag? | CIA |
@@ -36,13 +39,16 @@ recovery workshop uppgift (OCI miljö)
 steg 1: Går till storage på min instance -> boot-volume -> backups -> create boot volume backup (Backup type: Full)
 
 <img width="471" height="373" alt="image" src="https://github.com/user-attachments/assets/a2287988-2351-4d2f-bb06-4853243d9224" />
-Steg 2: Gick till boot volume -> backups -> valde den ursprungliga backupen klickade restore boot volume.
+
+Steg 2:  Nu skapar jag en fil på linux som inte finns på backupen för att senare verifiera att backupen funkar sedan gick jag till boot volume -> backups -> valde den ursprungliga backupen klickade restore boot volume.
 
 Steg 3: storage på instansen -> replace boot volume -> valde den den nya återställda volumen
 
 <img width="437" height="76" alt="image" src="https://github.com/user-attachments/assets/ca1b841f-5a3a-470c-959c-6501e61958a2" />
 
 <img width="476" height="373" alt="image" src="https://github.com/user-attachments/assets/678d6fdb-a05d-4b10-adce-18d146a79f3b" />
+
+steg 4: Här verifierar jag att backupen fungerar som den är tänkt. efter den nya boot volumen från backupen är tilldelad min instans testar jag att logga in för att verifiera detta. Filen är borta systemet funkar som det är tänkt.
 
 Skulle backupen inte fungera, kan jag utgå från inspelade lektioner om instance setupen samt all dokumentation på allt arbete finns på github för att försöka återskapa den miljön jag hade.
 
@@ -89,7 +95,7 @@ Det som inte går att återskapa är det som hänt efter jag gjorde en backup me
 ## 6. Cleanup
 ### VM-instans- Stopped (så ja ginte kör slut på free tier usage eller om jag skulle haft en betal plan kanske de ligger och kostar massa pengar i onödan). Jag har inte satt upp några brandväggsregler annars skulle man tagit bort dem.
 
-### Diskar- En boot volume "attached" med 50gb utrymme totalt.
+### Diskar- En boot volume "attached" med 50gb utrymme totalt. resten är raderade som är gamla eller oanvändbara
 
 ### Backuper- en backup skapad på oracle cloud Sep 02, 2026, 06:37:53 UTC, inga ändringar gjorda sen dess.
 
@@ -100,6 +106,8 @@ public ip-address 158.179.204.87 (Ephemeral= byts ut när vm tas bort eller stop
 ### GitHub-evidens
 
 https://github.com/hugowesterCA/hugo-wester-itsx26-labb01/edit/main/docs/week36-oci-cloud-security.md
+
+Hur vet du att du inte har lämnat kvar resurser som kostar pengar? jag har stoppat min instans samt tagit bort överflödiga backups och boot volumes som va det enda som kunde dra användning och jag har free tier abonnemang, jag har inga betal uppgifter inlagda.
 
 ---
 ## 7. CIA-reflektion
