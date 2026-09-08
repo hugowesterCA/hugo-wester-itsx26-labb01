@@ -9,6 +9,10 @@ LOG_FILE="security_network_check.log"
 OK_COUNT=0
 FAIL_COUNT=0
 
+cleanup() {
+    log "INFO" "Scriptet skapar inga temporära filer eller startar någon server men skulle det vara så hade det varit här cleanupen hade skett"
+    
+}
 log() {
     local status="$1"
     local message="$2"
@@ -28,7 +32,7 @@ for domain in "${DOMAIN[@]}"; do
     fi
 done
 if [[ -z "$TEST_PORT" ]]; then
-log "FAIL" "TEST_PORT är inte definerad, hoppar över lokal tjänstekontroll"
+log "FAIL" "TEST_PORT är inte definierad, hoppar över lokal tjänstekontroll"
 else
 if curl -s "http://localhost:$TEST_PORT" > /dev/null; then
 log "OK" "Lokal tjänst på port $TEST_PORT är tillgänglig"
@@ -52,12 +56,10 @@ log "OK" "Default route sparad i $LOG_FILE"
 log "INFO" "Sammanfattning: $OK_COUNT kontroller lyckades, $FAIL_COUNT kontroller misslyckades"
 log "INFO" "Fullständig logg finns i $LOG_FILE"
 
+cleanup
+
 if [[ "$FAIL_COUNT" -gt 0 ]]; then
 exit 1
 else
 exit 0
 fi
-
-cleanup() {
-    log "INFO" "Scriptet skapar inga temponära filer eller startar någn server men skulel det vara så hade det varit här cleanupen hade skett"
-}
