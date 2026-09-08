@@ -36,3 +36,13 @@ Jag bör inte ha några begränsningar sett till just denna uppgiften då jag an
 | Portar och tjänster | ss -tuln | På min vm är det totalt 6 adresser som lyssnar men det är dubbelt då 22 och 111 lyssnar på både ipv4 och ipv6 och så är det dubbla på dns resolvern. port 22 är ssh och används för att fjärrstyra en enhet. 111 är rpcbind och betyder att du kan anropa en annan dator om funktioner eller program som om den vore din egen. port 53 är dns resolvern som lyssnar efter förfrågningar och det den gör är att ge dig ip adresser på dem domännamn du frågar efter. |
 | Lokal tjänst | curl http://localhost:8080 | Ja servern går att nå. när jag kör curl kommandot så hämtas en fillista som finns i den mappen jag hostade servern på, i detta fall min egen mapp. |
 | Process eller systemstatus | ps aux \| grep ssh | här får jag först upp alla processer som körs just nu på min VM och med hjälp av pipelinen grep ssh listas endast dem som har ordet ssh.Då får jag upp 3 processer en listener som lyssnar efter inkommande ssh ansluningsförsök, två session rader PID 1894 och 1971 som är kopplade till min egen ssh anslutning. |
+
+# 8. Del D: testning
+
+| Test | Förväntat resultat | Faktiskt resultat | slutsats |
+|-----------|-----------|-----------|-----------|
+| Normalfall 1: loop för DNS kontroll | DNS uppslag fungerar och scriptet loggar OK| Scriptet loggade status OK för example.com google.com och github.com | Loopen och DNS kontrollen fungerar som tänkt med flera domännamn i samma körning. |
+| Felfall 1: TEST_PORT tom | Skriptet bör upptäcka att värdet är tomt och avbryta  utan krasch och logga det som en FAIL | Scriptet loggade FAIL "TEST_PORT är inte definierad" och fortsatte med resten av scriptet | Tack vare kontrollen i scriptet som kollar om värdet för port kollen är tom så undviker jag att felkoder eller krascher sker.
+| Felfall 2: Ingen tjänst på porten | Skulle det vara så att lokala servern som jag måste starta själv inte är igång eller inte nås av scriptet bör jag få felkoden "FAIL" "Lokal tjänst på port $TEST_PORT är inte tillgänglig" | Skriptet loggade FAIL "Lokal tjänst på port 8080 är inte tillgänglig" | Felhanteringen i scriptet fungerar vid uppkommna fel |
+| Normalfall 2: lokal test tjänst svarar? | Om jag nu har startat test servern innan jag kör scriptet borde det loggas som OK med port numret |  Skriptet loggade OK "Lokal tjänst på port 8080 är tillgänglig", och port 8080 syns i LISTEN-läge i 
+port översikten| Lokal tjänstekontroll delen i skriptet fungerar som det ska om lokaltjänsten är igång. |
