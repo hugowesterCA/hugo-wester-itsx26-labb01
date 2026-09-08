@@ -87,3 +87,40 @@ variabler eller miljön i det aktiva terminalfönstret? Variabeln kommer finnas 
 • Vad är skillnaden mellan grep ord fil och grep -i ord fil? grep kommer ta fram det exakta ordet medans grep -i tar även med samma ord oavsett om de är versaler eller inte.
 
 • Hur kan du söka rekursivt i alla filer under en katalog? (grep -r) med hjälp av grep -r "user" som ett exempel så kommer grep att list samtliga filer i katalogen du är i och alla underkataloger där user näms i texten. till skilnad från grep där du endast anger en fil som söks igenom.
+
+# 7. läs och skriv ut alla filer i aktuell mapp
+
+reflektionsfrågor:
+
+• Vad betyder PID i ps? PID= Process id, ett unikt id som varje process får tilldelat av linux.
+
+• Hur hittar du en process som heter python? genom att kombinera ps aux som listar alla processer, skickar vidare listan med "|" och sedan grep python för att filtrera i listan efter ordet python. så "ps aux | grep python"
+
+• Vad händer om du skickar kill -9 PID jämfört med kill PID? med kill pid skcikar du en "snäll" begäran till processen att stänga ner efter den har sparat och avslutat medans  kill -9 pid så skickar du en signal om att stoppa programmet omdedelbart utan att spara. Som i mitt fall där jag stängde datorn under en uppdatering så va jag tvungen att göra en kill -9 PID.
+
+# 8. Arbeta med redirection
+
+reflektionsfrågor: 
+
+• vad är skillnaden på > och >>?  > skapar antingen en ny eller skriver över en fil om den redan finns medans >> lägger till text längst ner i filen.
+
+• Vad händer om du skriver ls > filer.txt flera gånger? Hela filens innehåll kommer ersättas med det nya ls > filer.txt (om du har lagt till eller ändra något).
+
+# 9. Pipe och filter
+
+• Vad är skillnaden mellan | (pipe) och > (redirect)? pipe kopplar ihop program med program (kommandon) medans > redirect skriver in resultatet i en fil.
+
+• När skulle du använda grep i verkligheten? om man letar efter ett specifikt klockslag funkar grep eller om du vet att du letar efter en specifik felkod eller bara ordet error så kan du direkt söka upp just dem orden/siffrorna och slipper scrolla igenom hela filer.
+
+# 10. Organisera filer med Bash-skript
+
+reflektionsfrågor: 
+
+• Hur tar man reda på filändelsen i Bash? i mitt script använde jag mig av en if sats innehållande en jämförelse som såg ut såhär if [[ "$fil" == *.txt ]]. och en elif sats för varje typ av filtyp jag kan tänkas använda.
+
+• Hur kontrollerar man om en mapp finns? tex med en if sats med testet -d tex if [[ -d "mappnamn" ]] för att se om mappen finns.
+• Finns det olika sätt att flytta filer? Vad är för- och nackdelar? ja det finns de, du kan antingen använda mv för att enkelt flytta en fil till en annan. en alternativ väg är att kopiera en fil med cp och sen ta bort den gamla med rm. det sist nämnda tar längre tid.
+
+• Hur hanterar du filer med mellanslag? för att hantera filer med mellanslag så citerar du hela filen som den heter exempelvis mv "min fil.txt" minmapp, sålänge allt är inom citat tecken så kommer bash tolka det som ett argument eller ett namn.
+
+• Vad händer om du flyttar en fil som redan finns i målmappen? då ersätter den nya filen som du skriver in den gamla filen.
