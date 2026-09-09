@@ -26,7 +26,7 @@ cleanup() {
     elif [[ "$status" == "FAIL" ]]; then
        FAIL_COUNT=$((FAIL_COUNT + 1))
     fi
-}
+
 for domain in "${DOMAIN[@]}"; do
     if getent hosts "$domain" > /dev/null; then
         log "OK" "DNS-uppslag lyckades för $domain"
