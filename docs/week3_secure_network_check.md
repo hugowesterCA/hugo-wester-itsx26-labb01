@@ -30,7 +30,7 @@ Jag bör inte ha några begränsningar sett till just denna uppgiften då jag an
 | Konrollområde | Input| Resultat/förklaring |
 |-----------|-----------|-----------|
 | ip | Hostname -I | Hostname skriver i grunden ut systemet/hosten du kör systemet på men med flaggan -I listast endast ip adresser som är kopplad till hosten. jag fick då fram min egen ip som va enligt förväntan för det är den enda som ska vara kopplad till min VM |
-| Interface | ip address | Här får jag upp 2 interfaces. lo och ens3. under lo finns 4 adresser inet 127.0.0.1/8 och inet6 ::1/128 det är alltså en ipv4 adress och en ipv6 adress, sen står det även en mac och en broadcast adress men de används inte på lo. Under ens3 interface finns även där 4 adresser en ipv4 och en ipv6 men ens3 är adresser som fungerar på nätverket. en mac adress och en brd adress |
+| Interface | ip address | Under lo finns två IP-adresser, inet 127.0.0.1/8 och inet6 ::1/128. MAC-adressen är satt till nollor eftersom loopback inte har någon riktig mac adress. Under ens3 finns också två IP-adresser (en IPv4 och en IPv6), samt en riktig MAC-adress och en broadcast-adress, eftersom ens3 är det som faktiskt används för att nå andra nätverk och internet. |
 | Routing | ip route | Standard är via gatewayen 10.0.0.1 och genom dev ens3 som interface. |
 | DNS | getent hosts | Ja. Med hjälp av getent hosts example.com så skickades en förfrågan till en DNS server som i sin tur skickade tillbaka två ipv6 adresser som är kopplade till example.com |
 | Portar och tjänster | ss -tuln | På min vm är det totalt 6 adresser som lyssnar men det är dubbelt då 22 och 111 lyssnar på både ipv4 och ipv6 och så är det dubbla på dns resolvern. port 22 är ssh och används för att fjärrstyra en enhet. 111 är rpcbind och betyder att du kan anropa en annan dator om funktioner eller program som om den vore din egen. port 53 är dns resolvern som lyssnar efter förfrågningar och det den gör är att ge dig ip adresser på dem domännamn du frågar efter. |
@@ -42,14 +42,19 @@ Jag bör inte ha några begränsningar sett till just denna uppgiften då jag an
 | Test | Förväntat resultat | Faktiskt resultat | slutsats |
 |-----------|-----------|-----------|-----------|
 | Normalfall 1: loop för DNS kontroll | DNS uppslag fungerar och scriptet loggar OK| Scriptet loggade status OK för example.com google.com och github.com | Loopen och DNS kontrollen fungerar som tänkt med flera domännamn i samma körning. |
-| Felfall 1: TEST_PORT tom | Skriptet bör upptäcka att värdet är tomt och avbryta  utan krasch och logga det som en FAIL | Scriptet loggade FAIL "TEST_PORT är inte definierad" och fortsatte med resten av scriptet | Tack vare kontrollen i scriptet som kollar om värdet för port kollen är tom så undviker jag att felkoder eller krascher sker.
+| Felfall 1: TEST_PORT tom | Skriptet bör upptäcka att värdet är tomt och avbryta  utan krasch och logga det som en FAIL | Scriptet loggade FAIL "TEST_PORT är inte definierad" och fortsatte med resten av scriptet | Tack vare kontrollen i scriptet som kollar om värdet för port kollen är tom så undviker jag att felkoder eller krascher sker.|
 | Felfall 2: Ingen tjänst på porten | Skulle det vara så att lokala servern som jag måste starta själv inte är igång eller inte nås av scriptet bör jag få felkoden "FAIL" "Lokal tjänst på port $TEST_PORT är inte tillgänglig" | Skriptet loggade FAIL "Lokal tjänst på port 8080 är inte tillgänglig" | Felhanteringen i scriptet fungerar vid uppkommna fel |
-| Normalfall 2: lokal test tjänst svarar? | Om jag nu har startat test servern innan jag kör scriptet borde det loggas som OK med port numret |  Skriptet loggade OK "Lokal tjänst på port 8080 är tillgänglig", och port 8080 syns i LISTEN-läge i 
-port översikten| Lokal tjänstekontroll delen i skriptet fungerar som det ska om lokaltjänsten är igång. |
+| Normalfall 2: lokal test tjänst svarar? | Om jag nu har startat test servern innan jag kör scriptet borde det loggas som OK med port numret |  Skriptet loggade OK "Lokal tjänst på port 8080 är tillgänglig", och port 8080 syns i LISTEN-läge i  port översikten| Lokal tjänstekontroll delen i skriptet fungerar som det ska om lokaltjänsten är igång. |
+
+ ### Koppling till vecka 36:
+
+ Efter en hardening av portarna så skulle jag troligtvis bara ha kvar 22 som är väldigt kritisk då det är så jag når min VM genom ssh styrning. Och 53 skulle vara kvar för att kunna få IP-adresser till dommän namn som kan vara värdefullt ibland. port 111 skulle jag stänga av då det inte är något jag har nytta av och då är det en onödig attack yta.
+
+Efter en återställning så skulle jag först använda miljööversikten för att säkerställa att jag har ip adresser och route så ser jag om jag överhuvud taget kan ta mig ut på internet. Sen skulle jag kolla över portarna så att tex port 22 lyssnar så jag kan ha fjärrstyrning.
 
 # 9. Del E: CIA-analys
 
-###Konfidentialitet:
+### Konfidentialitet:
 
 nätverksutdata som kan vara känsliga enligt mig var samtliga ip-adresser, mac adresser, vilka portar som är öppna, hostname eller instans namn. I rapporten har jag valt att sanera ip adresserna då det bara är strukturen och typen av ip adress som är relevant. Medans i skriptet valde jag att ta med bara ip adresserna med grep "inet" men inte mac adressen.Mac adresen har ingen större nytta för läsaren eller personen som använder scriptet och relativt begränsad nytta för en angripare så jag valde att inte ta med det alls i skriptet. Vilka portar som är öppna kan vara en säkerhetsrisk men det är också hela poängen med skriptet att se själv vilka som är öppna så därav måste dem vara med.
 
@@ -78,7 +83,9 @@ Version 2 förbättring: I version 2 skulle jag först lägga till en del i skri
 Verklig drift eller säkerhetsprocess: Jag tänker att man skulle kunna ha detta script schemalagt som en rutin varje gång datorn startas upp eller när den har varit igång en stund som en säkerställning att nätverksfunktioner fungerar. Det skulle också kunna vara en del av rutinen om en dator kraschar att scriptet körs för att säkerställa att de mest grundläggande nätverksfunktioner funkar vid start igen. Viktigt är att det inte används för att scanna hela nätverk eller andra datorer än din egen.
 
 # AI-logg
-jag har enbart använt verktyget claude som hjälpmedel. 
+
+### jag har enbart använt verktyget claude som hjälpmedel. 
+
 | Syfte | Vilka förslag jag använde/avvisade| Test/kontroll | Delar jag själv utformade |
 |-----------|-----------|-----------|-----------|
 | Förstå och lägga till tids stämpling till loggar | Jag använde mig av förslaget LOG_DIR="$HOME/secure_network_check_logs" mkdir -p "$LOG_DIR" LOG_FILE="$LOG_DIR/secure_network_check_$(date +%Y%m%d_%H%M%S).log" då detta var ett skript som jag själv förstod vad det gjorde| Jag la in variablerna i skriptet och testkörde det och det funkade som det var tänkt | Jag valde att byta security till secure i fil och dir namnet, jag tog även bort att den skulle adressera hela filnamnet i varje kontroll till att bara addresera det i sammanfattningen |
