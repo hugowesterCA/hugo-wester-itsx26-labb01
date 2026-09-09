@@ -5,7 +5,9 @@
 
 DOMAIN=("example.com"  "google.com" "github.com")
 TEST_PORT=8080
-LOG_FILE="security_network_check.log"
+LOG_DIR="$HOME/secure_network_check_logs"
+mkdir -p "$LOG_DIR"
+LOG_FILE="$LOG_DIR/secure_network_check_$(date +%Y%m%d_%H%M%S).log"
 OK_COUNT=0
 FAIL_COUNT=0
 
@@ -43,15 +45,15 @@ fi
 
 log "INFO" "kontrollerar öppna portar på systemet"
 ss -tuln | tee -a "$LOG_FILE"
-log "OK" "portkontroll slutförd, resultat sparat i $LOG_FILE"
+log "OK" "portkontroll slutförd, resultat sparat"
 
 log "INFO" "Kontrollerar IP-adresser"
 ip address | grep "inet" | tee -a "$LOG_FILE"
-log "OK" "IP-adresser sparade i $LOG_FILE"
+log "OK" "IP-adresser sparade"
 
 log "INFO" "Kontrollerar default route"
 ip route | grep "default" | tee -a "$LOG_FILE"
-log "OK" "Default route sparad i $LOG_FILE"
+log "OK" "Default route sparad"
 
 log "INFO" "Sammanfattning: $OK_COUNT kontroller lyckades, $FAIL_COUNT kontroller misslyckades"
 log "INFO" "Fullständig logg finns i $LOG_FILE"
