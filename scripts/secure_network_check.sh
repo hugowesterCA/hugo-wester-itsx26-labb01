@@ -11,14 +11,15 @@ LOG_FILE="$LOG_DIR/secure_network_check_$(date +%Y%m%d_%H%M%S).log"
 OK_COUNT=0
 FAIL_COUNT=0
 
-cleanup() {
-    log "INFO" "Scriptet skapar inga temporära filer eller startar någon server men skulle det vara så hade det varit här cleanupen hade skett"
-    
-}
 log() {
     local status="$1"
     local message="$2"
     echo "[$status] $message" | tee -a "$LOG_FILE"
+}
+cleanup() {
+    log "INFO" "Scriptet skapar inga temporära filer eller startar någon server men skulle det vara så hade det varit här cleanupen hade skett"
+    
+}   
 
     if [[ "$status" == "OK" ]]; then
        OK_COUNT=$((OK_COUNT + 1))
