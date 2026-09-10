@@ -46,13 +46,13 @@ done
 # Om den är definierad kollar den om det går att ansluta och loggar resultat.
 # curl -s används för att fråga om tjänsten är igång och svarar, -s flaggan gör att curl inte skriver ut/med onödig information.
 if [[ -z "$TEST_PORT" ]]; then
-log "FAIL" "TEST_PORT är inte definierad, hoppar över lokal tjänstekontroll"
+     log "FAIL" "TEST_PORT är inte definierad, hoppar över lokal tjänstekontroll"
 else
-if curl -s "http://localhost:$TEST_PORT" > /dev/null; then
-log "OK" "Lokal tjänst på port $TEST_PORT är tillgänglig"
-else
-log "FAIL" "Lokal tjänst på port $TEST_PORT är inte tillgänglig"
-fi
+    if curl -s "http://localhost:$TEST_PORT" > /dev/null; then
+       log "OK" "Lokal tjänst på port $TEST_PORT är tillgänglig"
+    else
+       log "FAIL" "Lokal tjänst på port $TEST_PORT är inte tillgänglig"
+   fi
 fi
 
 # kontrollerar öppna portar på systemet med ss -tuln och pipe till tee -a betyder att resultatet 
