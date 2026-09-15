@@ -1,7 +1,7 @@
 # Del A: miljö och metod
 • OCI: Oracle cloud instans med Canonical Ubuntu 26.04
 
-• Beskriv vilket interface du fångade på eller varför du använde any.Jag valde att fånga ens3 interfacet därför att det står som default route och har status UP. Det är genom detta interface som all internet trafik går igenom när den ska till min instans.
+• Jag valde att fånga ens3 interfacet därför att det står som default route och har status UP. Det är genom detta interface som all internet trafik går igenom när den ska till min instans.
 
 • Jag valde att använda egen fångst då jag har möjligheten och jag får en chans att lära mig hur det fungerar.
 
@@ -50,4 +50,11 @@ Applikationsprotokollet var TLS. I paket 293 (Client Hello) syns en server_name-
 |alternativa förklaringar| Att det finns två IP adresser till example.com skulle också kunna vara att det är två olika serverplatser geografiskt och att det är upp till klienten att välja den närmaste. | Jag konstaterade tidigare att paketen 71-72-73 inte va en del av trafikmix skriptet och en förklaring till det skulle kunna vara att det är automatisk förfrågan för att uppdatera systemet om förendringar sker men en alternativ förklaring skulle kunna vara att förfrågan triggades av någon händelse på instansen om nätverket ändrades eller någon annan förendring skedde i bakrunden på instansen|
 |vad mer som skulle behövas för en säkrare slutsats| För att veta varför example.com har två ipadresser skulle man kunna se om deras nätverksarkitektur finns dokumenterad någonstans. | För att se varför denna tcp anslutningen skedde automatiskt av OCI skulle jag kunna gå till instansens egna loggar, eller jämföra om de finns något mönster i pcap om den dyker upp efter en viss tid liknande.|
 
-Del E: krypterat och okrypterat
+# Del E: krypterat och okrypterat
+
+| Aspekt| HTTP | TLS/HTTPS |
+|-----|-----|-----|
+| Synlig metadata| På HTTP protokollen saknas kryptering helt vilket betyder att vem som helst som fångar dessa paket kan läsa fullständig metadata som exempel vilken domän eller webbplats, exakt vilket verktyg och version klienten använde, vilket format klienten accepterar, vilket typ av innehåll paketet har, senaste förändring på sidan, tidsstämpel för svaret.| Här kan du bara se meta data före krypteringen sker så i första förfrågan från klienten kan man se SNI=domännamn, Session ID,TLS-version som föreslås, vilka krypteringsmetoder klienten stödjer, från server hello paketet kan man se vilken kryptering som faktiskt användes. du ka näven se ip adresser, portar, paketstorlek. Innehållet av paketen är däremot krypterade.|
+| Läsbar applicationsdata| På http kan du se hela innehållet av paketet, tex kunde jag se hela HTML sidan på ett paket.| Om jag försöker se applikations datan på TLS står det bara Encryptet application data och innehållet finns men är helt oläsbart pga krypteringen. |
+| Felsöknings värde | HTTP gör felsökningen väldigt smidig då du kan se allt innehåll som serverns status eller andra fel.| Här blir det svårare att felsöka då allt är krypterat, de enda du kan se är om anslutningen lyckades, och vilken kryptering som användes. |
+|Konfidentialitetsrisk| HTTP är läsbart för vem som helst som får tillgång till paketen och då ser dem min privata ip, serverns ip. Framför allt ser dem exakt vad jag bad om och vilket verktyg jag använde och vilken sida jag försökte komma åt.| På TLS ser du mindre men fortfarande SNI=domännamnet och detta kan hjälpa angripare kartlägga vilka sidor du besöker men också avgöra om det är värt att försöka av kryptera datan eller börja gå andra vägar för att angripa dig på andra sätt|
