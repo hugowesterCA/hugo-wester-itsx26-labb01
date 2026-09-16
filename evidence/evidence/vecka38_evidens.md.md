@@ -8,3 +8,4 @@
 - Trafik: genererad med trafikmix.sh (ping, DNS, HTTP, HTTPS mot example.com/8.8.8.8), 3 varv
 - Storlek: 82K
 - Sanering: rå pcap hålls lokalt, ej i github.
+- pcap hash (SHA256): 5a790aef31ef9a2de5747450389faac729e98208337c5ab27081cfca90d7d338 (trafikmix2.pcap)
