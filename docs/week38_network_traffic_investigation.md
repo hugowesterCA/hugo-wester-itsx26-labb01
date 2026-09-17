@@ -81,4 +81,22 @@ Applikationsprotokollet var TLS. I paket 293 (Client Hello) syns en server_name-
 # Del H: slutsats och rekommendation
 
 Trafiken jag analyserade bestod av två delar, trafikmix paketen och bakgrunds process paketen. Bakgrunds trafiken hade jag inte tänkt på innan att jag skulle få med. Den trafik jag själv skapade med skriptet flöt på som tänkt med TCP, DNS-uppslag, HTTP och HTTPS. Ett undantag jag noterade var ett RST paket som kom efter en redan skickad FIN, ACK, vilket tyder på att anslutningen redan hade avslutats som den skulle, men att detta paketet av någon anledning kom efteråt ändå. Jag fann också flera dubbletter av ACK-paket i TCP-protokollet. 
-starkast underbyggda datan-
+
+Den pcap data som är starkast underbyggd i mitt fall skulle jag säga är främst den trafiken jag själv skapade t.ex TCP protokollet där man tydligt ser hela 3 vägs handskakningen eller ICMP pinget till 8.8.8.8, eller på TLS protokollet såg man tydligt i client hello meddelandet såg man SNI= example.com och dessutom kunde jag dubbelkolla detta när jag hittade server_name=example.com. Dessa är starkast underbyggda då man tydligt ser vad som sker och det finns inga alternativa förklaringar till vad det skulle kunna bero på eller bettyda.
+
+Tveksamheter finns kvar. Exakt varför DNS uppslaget gav mig två IP addresser på example.com, här kan jag bara gissa på att det är för lastbalansering eller beroende på din geografiska plats väljer din klient den närmsta ip adressen. Eller TCP paket 446 som innehöll ett RST men exakt varför det kom FIN,ACK vet jag inte helt.
+
+Utifrån den datan jag har kollat på i pcapen så skulle jag vilja kolla på möjlighterna att kryptera kommunukationen mellan OCIs metadata tjänst och min instans. Eftersom detta sker inom deras interna nätverk så är det ingen kritisk risk just nu, men skulle en angripare få tillgång till det interna nätverk skulle detta kunna vara ett problem. Detta är inget problem i den meningen att någon lyssnar på trafiken just nu så detta är bara ett problem i teorin.
+
+För att samla in ytterligare stöd för osäkerheter och svar hade jag undersökt exakt varför jag fick två adresser på dns uppslaget genom att göra fler uppslag med tiden för att se om adresserna ändras, jag skulle testa whois verktyg för att se om det faktiskt är olika platser servern ligger på . Jag skulle undersöka exakt varför TCP paket RST kom efter en redan avslutad anslutning, kanske genom att göra en längre fångst eller fler för att se om det alltid blir såhär och då kanske det är normalt mönster. Och om det finns någon specifik anledning till att OCIs metadata tjänst använder sig av http och inte https, se om det kan finnas någon dokumentation över detta redan.
+
+# AI-användning
+
+| Syfte| Förslag jag använde/avvisade | Kontroll mot pcap fil | Vad jag formulerade själv |
+|-----|-----|-----|-----|
+
+|||||
+|||||
+|||||
+|||||
+|||||
