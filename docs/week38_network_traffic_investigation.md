@@ -9,7 +9,7 @@
 
 • pcap beskrivning finns i mappen evidense i vecka38_evidens.md. råpcap hålls lokalt.
 
-• Förklara relevanta skillnader mot lärarens OCI-demonstration
+• Det fanns inga skillnader värda att nämna då jag använde mig av en OCI miljö i denna inlämnings uppgift och även i lärar demo exemplet. 
 
 # Del B: paketets väg
 
@@ -92,11 +92,11 @@ För att samla in ytterligare stöd för osäkerheter och svar hade jag undersö
 
 # AI-användning
 
+Jag har valt att enbart använda modellen claude sonnet 5 vid de tillfällen jag valt att ta generativ ai som hjälp.
+
 | Syfte| Förslag jag använde/avvisade | Kontroll mot pcap fil | Vad jag formulerade själv |
 |-----|-----|-----|-----|
-
-|||||
-|||||
-|||||
-|||||
-|||||
+| Förstå tekniska koncept jag inte helt förstod (TCP-handskakning, DNS, ICMP) | Förklaring av protokollens väg, TCP handskakning och DNS uppslag | Jag använder kunskapen jag fick av ai och följer paketens väg i pcap filen för att se att det faktiskt ser ut så och att ai inte "flummar" | Min tolkning/förklaring av paketns väg och nummer på paketen |
+| Be AI förtydliga frågor i uppgiften jag var osäker på | Tolkning av "evidensbeskrivning" (evidence/README.md), tolkning av Del D/F/G:s exakta krav | ingen kontroll då det va fråga om uppgiften i sig | formulerade namnet på evidens filen och skrev dem punkter ai ansåg va lämliga att ta med som evidens. |
+| Kontrollera AIs egna påståenden mot fakta | Jag avvisade AI förslaget när den felaktigt drog slutsatsen att en DNS-adress var ipv4,jag identifierade själv att formatet var ipv6.| jag såg att adress formatet på ip adressen va med kolon och mycket länre än ipv4 alltså en ipv6 | Att det var en ipv6 adress. |
+| Förstå TLS/SNI (kryptering, Client Hello->server hello-> change cipher spec) | Förklaring av Change Cipher Spec, vad SNI-fältet betyder och varför det syns i klartext | Jag klickade själv fram och bekräftade server_name fältet i paket 293 i Wireshark för att se att oh vad det faktiskt stod där | Att SNI-läckan var en av mina starkast underbyggda observationer, eftersom jag kunde verifiera den direkt.
