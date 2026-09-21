@@ -1,8 +1,10 @@
+LOG_PATH = "data/auth.log"
+SEARCH_TERM = "Failed login"
 skipped = 0
 ip_counts = {}
 fail_count = 0
 
-with open("data/auth.log", encoding="utf-8") as log_file:
+with open(LOG_PATH, encoding="utf-8") as log_file:
     for line in log_file:
         fields = line.split()
         source_fields = [f for f in fields if f.startswith("src=")]
@@ -11,7 +13,7 @@ with open("data/auth.log", encoding="utf-8") as log_file:
             skipped += 1
             continue
 
-        if "Failed login" not in line:
+        if SEARCH_TERM not in line:
             continue
 
         fail_count += 1
