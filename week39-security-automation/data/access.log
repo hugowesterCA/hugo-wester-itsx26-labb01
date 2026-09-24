@@ -1,0 +1,4 @@
+2026-09-24T08:21:02Z src=203.0.113.15 method=GET path=/login status=401
+2026-09-24T08:21:04Z src=192.0.2.25 method=GET path=/index.html status=200
+2026-09-24T08:21:06Z src=203.0.113.15 method=POST path=/login status=401
+2026-09-24T08:22:15Z src=198.51.100.44 method=GET path=/admin status=404

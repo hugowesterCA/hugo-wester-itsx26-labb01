@@ -1,0 +1,24 @@
+Källor: data/auth.log, data/firewall.log, data/suspicious_ips.txt
+
+Antal unika ip-adresser i auth.log: 2
+Skippade i auth.log: 1
+Antal misslyckade inloggningar från 198.51.100.44: 1
+Antal misslyckade inloggningar från 203.0.113.15: 3
+Antal misslyckade totalt: 4
+
+Skippade i firewall.log: 0
+Antal unika blockerade ip-adresser i firewall.log: 2
+Antal nekade anslutningar: 1
+Antal droppade anslutningar: 1
+Antal tillåtna anslutningar: 1
+Blockerade anslutningar från 203.0.113.15: 1
+Blockerade anslutningar från 203.0.113.99: 1
+
+IOC träff i auth.log bör kontrolleras: 198.51.100.44 (1 misslyckade inloggningar)
+IOC träff i auth.log bör kontrolleras: 203.0.113.15 (3 misslyckade inloggningar)
+IOC träff i firewall.log bör kontrolleras: 203.0.113.15 (1 blockerade anslutningar)
+IOC träff i firewall.log bör kontrolleras: 203.0.113.99 (1 blockerade anslutningar)
+
+Observation: 203.0.113.15 förekommer i både auth.log och firewall.log och är även listad i suspicious_ips.txt
+Begränsning: Endast auth.log och firewall.log analyseras, access.log kollas inte.
+Begränsning: Observationen är manuellt skriven och kommer därför stå likadant oavsett om en fil inte hittades. Observationen utgår från att filerna har lästs in rätt.
