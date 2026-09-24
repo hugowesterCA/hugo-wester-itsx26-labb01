@@ -74,3 +74,15 @@ I sista testfallet ville jag se vad som händer när det inte finns något att r
 Här vill jag kontrollera så att programmet security_report.py faktiskt räknar rätt i auth.log filen. Jag räknade innan körningen till 4 failed login, 2 unika ip adresser, 203.0.113.15 står för 3 av försöken och 198.51.100.44 förekommer 1 gång. En rad utan "src=" så skipped borde bli 1. Det stämmde med det programmet räknade så kontrollen är godkänd.
 
 Efter testerna har körts ska "AUTH_LOG" återställas till data/auth.log
+
+## Kända begränsningar:
+
+1. Endast auth.log och firewall.log analyseras, access.log ingår inte och där kan det finnas flera samband.
+2. IOC jämförelsen mot firewall.log och auth.log omfattar bara misslyckade inloggningar och blockeringar så godkända inlogg eller anslutningar kommer inte synas vilket skulle kunna vara mer allvarligt än en misslyckad anslutning.
+3. Observationen i rapporten är manuellt skriven och kommer därför stå kvar/skrivas ut oavsett om filerna kunde hittas eller inte.
+4. Sökvägarna är hårdkodade så för att analysera andra filer måste sökvägen manuellt ändras i koden innan man kör programmet. Möjlig förbättring skulle vara att programmet kan ta filnamnet som argument vid start.
+
+## AI-redovisning
+
+1. 223
+   
