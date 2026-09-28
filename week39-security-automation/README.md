@@ -84,5 +84,10 @@ Efter testerna har körts ska "AUTH_LOG" återställas till data/auth.log
 
 ## AI-redovisning
 
-1. 223
-   
+| Verktyg | Fråga till AI | Svar från AI | Vad jag använde/avvisade | Verifiering |
+|---|---|---|---|---|
+| Claude (Anthropic) | Hjälp mig att förstå lärarens demokod rad för rad (with open, for, split, list comprehension, dictionary med .get()) | Förklaringar av varje del och en körbar version av utdragen från presentationen | Använde. Skrev in koden själv och kommenterade den med egna ord | Jämförde resultatet mot manuellt räknat kontrollvärde i auth.log (4 misslyckade, 2 unika IP, skipped 1) |
+| Claude | Hjälp med IOC-jämförelse och att skriva rapporten till fil | Förslag på set för IOC-listan, report_lines-lista och open(..., "w") | Använde upplägget. Skrev texterna i rapporten själv | Kontrollerade IOC-träffarna mot suspicious_ips.txt för hand |
+| Claude | Hjälp mig med strukturen i mitt try/except-block | Påpekade att return låg i fel block och att bekräftelsen måste ligga inne i try | Använde strukturen, Visste själv att try/except behövdes efter kapitel 8, fick hjälp med placeringen | Körde med felstavade sökvägar och kontrollerade att varning skrevs i rapporten utan krasch |
+| VS Code / Copilot | Förslag när jag skulle skriva ut antal unika IP-adresser | len(ip_counts) | Använde. Jag hade redan förstått att varje unik IP-adress blir en nyckel i ip_counts, men visste inte vilket kommando som räknar dem | Kontrollvärde 2 stämde |
+| Claude (annat fönster utan kontext) | Hur hämtar jag IP-adressen ur en loggrad? | line.split()[0] | Avvisade detta förslag. Första fältet i våra loggar är tidsstämpeln, inte IP-adressen vilket skulle bli fel i den typen av loggar vi kör med. Här skrev jag frågan i en chatt där kontext om uppgiften saknades och det resulterade i ett felaktikt antagande. | Behöll sökning efter src=-fältet |
