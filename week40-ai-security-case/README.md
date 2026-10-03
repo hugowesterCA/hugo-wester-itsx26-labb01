@@ -4,7 +4,7 @@
 
 ### Kort beskrivning
 
-Det här repot innehåller den individuella examinationsuppgiften för vecka 40. Uppgiften analyserar ett scenario med indirekt prompt injection mot ett AI-system, med fokus på CIA-triaden, CIS Controls och proportionerlig riskbedömning under redovisad osäkerhet.
+Den här mappen innehåller den individuella examinationsuppgiften för vecka 40. Uppgiften analyserar ett scenario med indirekt prompt injection mot ett AI-system, med fokus på CIA-triaden, CIS Controls och proportionerlig riskbedömning under redovisad osäkerhet.
 
 ### Innehåll
 docs/report.md – huvudrapport enligt Case B:s rapportstruktur (12 avsnitt)
